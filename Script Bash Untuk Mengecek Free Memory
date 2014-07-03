@@ -1,0 +1,10 @@
+#!/bin/bash
+freemem=`free | grep Mem | awk '{print / * 100.0}' | cut -c1-2`
+memory=`echo $[100-$freemem]`
+if [ $freemem -le 20 ];
+then
+echo "Free Memory is $freemem% and it is very low"
+sync;sync;echo 3 > /proc/sys/vm/drop_caches
+else
+echo "Free Memory is $freemem% and it is still high"
+fi
